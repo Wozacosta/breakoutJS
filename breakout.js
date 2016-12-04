@@ -46,7 +46,7 @@ function drawBricks(){
             }
         }
     }
-};
+}
 
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -123,8 +123,8 @@ function draw(){
 
     if (y+dy-ballRadius < 0){
         dy = -dy
-    }else if(y+dy+ballRadius > canvas.height){
-        if(x > paddleX && x < paddleX + paddleWidth){
+    }else if(y+ballRadius > canvas.height){
+        if(x+ballRadius > paddleX && x - ballRadius < paddleX + paddleWidth){
             dy = -dy;
         }else{
             alert("GAME OVER");
@@ -141,8 +141,13 @@ function draw(){
     collisionDetection();
 }
 
-var paused = false;
-var int = setInterval(draw, 10);
+function mouseMoveHandler(e){
+    var relativeX = e.clientX - canvas.offsetParent.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width){
+        paddleX = relativeX - paddleWidth / 2;
+    }
+}
+
 
 document.body.addEventListener("click", function(){
     if (!paused){
@@ -153,4 +158,10 @@ document.body.addEventListener("click", function(){
         paused = false;
     }
 });
+
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+var paused = false;
+var int = setInterval(draw, 10);
 

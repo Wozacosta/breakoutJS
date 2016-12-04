@@ -139,6 +139,7 @@ function draw(){
         paddleX -= 7;
     }
     collisionDetection();
+    requestAnimationFrame(draw);
 }
 
 function mouseMoveHandler(e){
@@ -149,19 +150,7 @@ function mouseMoveHandler(e){
 }
 
 
-document.body.addEventListener("click", function(){
-    if (!paused){
-        clearInterval(int);
-        paused = true;
-    }else {
-        int = setInterval(draw, 10);
-        paused = false;
-    }
-});
-
-
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
-var paused = false;
-var int = setInterval(draw, 10);
+draw();
 
